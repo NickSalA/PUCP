@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+loguru = "*"
+pydantic-settings = "*"
+pydantic="*"
+langchain-google-genai = "*"
+langgraph = "*"
+langchain = "*"
+langchain-core = "*"
+langchain-community = "*"
+azure-search-documents = "*"
+azure-ai-formrecognizer = "*"
+fastapi = "*"
+uvicorn = "*"
+itsdangerous= "*"
+[dev-packages]
+
+[scripts]
+start = "uvicorn app.app:app --reload"
+upload = "uvicorn app.upload:app --reload"
+[requires]
+python_version = "3.12"
