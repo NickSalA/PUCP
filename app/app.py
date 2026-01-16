@@ -8,7 +8,7 @@ from app.router.router import router as routerAgente
 
 app = FastAPI(title="LuminAI API")
 
-app.include_router(routerAgente, tags=["Agente"])
+app.include_router(routerAgente, prefix="/agente", tags=["Agente"])
 
 ALLOWED_ORIGINS = [
     "http://0.0.0.0:8000",

@@ -9,7 +9,7 @@ from azure.core.credentials import AzureKeyCredential
 # Helpers propios
 from app.core.config import settings
 
-def get_retriever() -> AzureAISearchRetriever:
+def get_retriever(index: str = "") -> AzureAISearchRetriever:
     """ Obtener el retriever de Azure Cognitive Search.
     Returns:
         AzureAISearchRetriever: Instancia del retriever.
@@ -18,11 +18,11 @@ def get_retriever() -> AzureAISearchRetriever:
     return AzureAISearchRetriever(
         service_name = settings.AZURE_SEARCH_SERVICE_NAME,
         api_key = settings.AZURE_SEARCH_API_KEY,
-        index_name = settings.AZURE_SEARCH_INDEX_NAME,
+        index_name = index,
         top_k = settings.AZURE_SEARCH_TOP_K,
     )
 
-def connect_search_client() -> SearchClient:
+def connect_search_client(index: str = "") -> SearchClient:
     """ Conectar al cliente de Azure Cognitive Search.
     Returns:
         SearchClient: Instancia del cliente de búsqueda.
@@ -30,7 +30,7 @@ def connect_search_client() -> SearchClient:
 
     return SearchClient(
         f"https://{settings.AZURE_SEARCH_SERVICE_NAME}.search.windows.net",
-        settings.AZURE_SEARCH_INDEX_NAME,
+        index,
         AzureKeyCredential(settings.AZURE_SEARCH_API_KEY)
     )
 

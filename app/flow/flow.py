@@ -88,7 +88,7 @@ class FlowAgent:
         self.llm = get_llm()
         self.agent_flow = CreateAgentFlow(
             llm=self.llm,
-            tools = [bc_tool()],
+            tools = [bc_tool("pucp-index")],
             memory= get_checkpointer(),
             context=prompt_system(),
             checkpoint_ns="pucp-demo",

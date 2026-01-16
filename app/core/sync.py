@@ -66,7 +66,7 @@ def get_chunks(content: str) -> List[Dict[str, str]]:
                 "content": processed_text})
     return identified_chunks
 
-def upload_file(file_path: str = "") -> bool:
+def upload_file(file_path: str = "", index: str = "") -> bool:
     """
     Lee el PDF, genera chunks con metadatos y los sube.
     Args:
@@ -77,7 +77,7 @@ def upload_file(file_path: str = "") -> bool:
         content,_ = read_document(file_path)
         chunks = get_chunks(content)
 
-        knowledge_base = connect_search_client()
+        knowledge_base = connect_search_client(index)
         results = knowledge_base.upload_documents(chunks)
         clean_results = normalize_azure_search_results(results)
         if not clean_results:
@@ -91,7 +91,7 @@ def upload_file(file_path: str = "") -> bool:
         print(f"⚠️ Error al procesar {file_path}: {e}")
         return False
 
-def upload_files_from_folder(folder_path: str = ""):
+def upload_files_from_folder(folder_path: str = "", index: str = ""):
     """Carga todos los archivos de una carpeta a la base de conocimiento."""
     error_folder = os.path.join(folder_path, "error_files")
 
@@ -109,7 +109,7 @@ def upload_files_from_folder(folder_path: str = ""):
 
                 print(f"procesando: {filename}...")
 
-                success = upload_file(file_path)
+                success = upload_file(file_path, index)
 
                 if success:
                     try:
