@@ -96,6 +96,7 @@ def upload_files_from_folder(folder_path: str = ""):
     error_folder = os.path.join(folder_path, "error_files")
 
     while True:
+        print("Ejecutando sincronización...")
         archivos = get_files(folder_path)
 
         if archivos:
@@ -123,4 +124,4 @@ def upload_files_from_folder(folder_path: str = ""):
                     timestamp = int(time.time())
                     destino = os.path.join(error_folder, f"{timestamp}_{filename}")
                     shutil.move(file_path, destino)
-        time.sleep(10)
+        time.sleep(5)
